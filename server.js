@@ -19,7 +19,7 @@ const options = {
   ],
   credentials: true,
 };
-app.use(cors());
+app.use(cors(options));
 app.use(cookieParser());
 app.use(express.json());
 
@@ -28,8 +28,9 @@ mongoose
   .connect(
     "mongodb+srv://karthicksanthosh1999:MOrvgIBiIb9LvXpL@cluster0.rlvij.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
   )
-  .then((res) =>
+  .then(() =>
     app.listen(PORT, () => {
       console.log(`Server is running on PORT ${PORT}`);
     })
-  )``.catch((err) => console.log(err));
+  )
+  .catch((err) => console.log(err));
