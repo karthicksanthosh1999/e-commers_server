@@ -6,14 +6,12 @@ const User = require("../../models/User");
 const registerUser = async (req, res) => {
   const { email, password, userName } = req.body;
   try {
-    const existingUser = await User.findOne({
-      $or: [{ email: email }, { userName: userName }],
-    });
+    const existingUser = await User.findOne({ email: email });
     if (existingUser) {
       return res.status(400).json({
         message: "User already existing",
-        statusCode: 400,
         success: false,
+        statusCode: 400,
       });
     }
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -27,7 +25,11 @@ const registerUser = async (req, res) => {
     });
   } catch (error) {
     console.log(error);
-    res.status(500).json({});
+    res.status(500).json({
+      message: "Internal server error",
+      statusCode: 500,
+      success: false,
+    });
   }
 };
 
