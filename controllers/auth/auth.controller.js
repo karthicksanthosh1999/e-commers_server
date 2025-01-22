@@ -85,7 +85,7 @@ const loginUser = async (req, res) => {
 
     res.cookie("token", token, { httpOnly: true, secure: false }).json({
       message: "User login successfully",
-      success: false,
+      success: true,
       statusCode: 200,
       data: {
         userName: foundUser?.userName,
@@ -115,7 +115,7 @@ const logoutUser = async (req, res) => {
 
 //Middleware
 const authMiddleware = async (req, res, next) => {
-  const token = res.cookie.token;
+  const token = req.cookies.token;
   try {
     if (!token) {
       return res.status(401).json({
