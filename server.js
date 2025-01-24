@@ -7,6 +7,8 @@ env.config();
 
 // Routes
 const authRoutes = require("./routes/auth-routes/user.routes");
+const adminRoutes = require("./routes/admin-routes/admin.routes");
+const errorHandler = require("./middlewares/globelErrorHandler");
 
 const app = express();
 
@@ -27,8 +29,11 @@ app.use(cookieParser());
 app.use(express.json());
 
 app.use("/api/auth", authRoutes);
+app.use("/api/admin/products", adminRoutes);
 
 const PORT = process.env.PORT;
+
+app.use(errorHandler);
 mongoose
   .connect(
     "mongodb+srv://karthicksanthosh1999:MOrvgIBiIb9LvXpL@cluster0.rlvij.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
