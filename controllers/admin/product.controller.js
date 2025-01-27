@@ -43,6 +43,7 @@ const addProduct = async (req, res, next) => {
       salePrice,
       totalStack,
     });
+    await newCreatedProduct.save();
     res.status(201).json({
       message: "Product created successfully",
       success: true,
@@ -56,7 +57,7 @@ const addProduct = async (req, res, next) => {
 
 const getAllProducts = async (req, res, next) => {
   try {
-    const allProducts = await Product.find({});
+    const allProducts = await Product.find();
     res.status(200).json({
       message: "Product get successfully",
       success: true,
