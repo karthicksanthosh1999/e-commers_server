@@ -1,4 +1,7 @@
-const { imageUploadUtils } = require("../../config/cloudnary");
+const {
+  imageUploadUtils,
+  imageDeleteUtils,
+} = require("../../config/cloudnary");
 const Product = require("../../models/Product");
 const CustomeError = require("../../utils/customeErrorHandler");
 
@@ -90,8 +93,11 @@ const deleteSingleProduct = async (req, res, next) => {
   const { id } = req.params;
   try {
     const product = await Product.findById(id);
-    if (!product) throw CustomeError("Product not exist", 400);
+    if (!product) CustomeError("Product not exist", 400);
+    await imageDeleteUtils(product.image);
+
     await Product.findByIdAndDelete(id);
+
     res.status(200).json({
       message: "Product deleted successfully",
       statusCode: 200,

@@ -8,6 +8,8 @@ cloudinary.config({
 });
 
 const storage = new multer.memoryStorage();
+
+// Image upload utils
 const imageUploadUtils = async (file) => {
   const result = await cloudinary.uploader.upload(file, {
     resource_type: "auto",
@@ -15,9 +17,19 @@ const imageUploadUtils = async (file) => {
   return result;
 };
 
+// Image delete utils
+const imageDeleteUtils = async (url) => {
+  const parts = url.split("/upload/");
+  let publicId = parts[1].split(".")[0];
+  console.log(publicId);
+  const isDeleted = await cloudinary.uploader.destroy(publicId);
+  return isDeleted;
+};
+
 const upload = multer({ storage });
 
 module.exports = {
   upload,
   imageUploadUtils,
+  imageDeleteUtils,
 };
