@@ -9,6 +9,7 @@ env.config();
 const authRoutes = require("./routes/auth-routes/user.routes");
 const adminRoutes = require("./routes/admin-routes/admin.routes");
 const errorHandler = require("./middlewares/globelErrorHandler");
+const shopRouter = require("./routes/shop-routes/shop.routes");
 
 const app = express();
 
@@ -30,6 +31,7 @@ app.use(express.json());
 
 app.use("/api/auth", authRoutes);
 app.use("/api/admin/products", adminRoutes);
+app.use("/api/shop/products", shopRouter);
 
 const PORT = process.env.PORT;
 
