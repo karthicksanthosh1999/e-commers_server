@@ -5,7 +5,6 @@ const cookieParser = require("cookie-parser");
 const env = require("dotenv");
 env.config();
 
-// Routes
 const authRoutes = require("./routes/auth-routes/user.routes");
 const adminRoutes = require("./routes/admin-routes/admin.routes");
 const errorHandler = require("./middlewares/globelErrorHandler");
